@@ -1,0 +1,51 @@
+--POLICE STATIONS 
+INSERT INTO POLICE_STATION VALUES ('P1','Tadepalligudem Town PS','Main Road, 
+Tadepalligudem','West Godavari','08818-224455'); 
+INSERT INTO POLICE_STATION VALUES ('P2','Bhimavaram PS','NH-16, 
+Bhimavaram','West Godavari','08816-223344'); 
+INSERT INTO POLICE_STATION VALUES ('P3','Eluru PS','Eluru Central, Eluru','Eluru District','08812-233445');
+
+
+--OFFICERS 
+INSERT INTO OFFICER VALUES ('O1','Ravi Kumar','Sub Inspector','SI-1021','P1'); 
+INSERT INTO OFFICER VALUES ('O2','Lakshmi Devi','Inspector','INS-0456','P2'); 
+INSERT INTO OFFICER VALUES ('O3','Suresh Babu','Head Constable','HC-7893','P1'); 
+INSERT INTO OFFICER VALUES ('O4','Anand Rao','DSP','DSP-0089','P3');
+
+
+--CRIMES 
+INSERT INTO CRIME VALUES ('C1','Theft', DATE '2025-01-10','Market Area, Tadepalligudem','Mobile and cash stolen','Medium'); 
+INSERT INTO CRIME VALUES ('C2','Murder', DATE '2025-02-14','Railway Station, Bhimavaram','Stabbing incident','High'); 
+INSERT INTO CRIME VALUES ('C3','Cybercrime', DATE '2025-03-05','Online','Bank fraud via phishing','High'); 
+INSERT INTO CRIME VALUES ('C4','Assault', DATE '2025-04-22','Bus Stand, Eluru','Physical altercation','Low');
+
+
+--CRIMINALS 
+INSERT INTO CRIMINAL VALUES ('CR1','Ramesh Goud', DATE '1990-06-15','M','Old Town, Tadepalligudem',2,'Arrested'); 
+INSERT INTO CRIMINAL VALUES ('CR2','Sunil Das', DATE '1985-11-20','M','Krishna Nagar, Bhimavaram',1,'Absconding'); 
+INSERT INTO CRIMINAL VALUES ('CR3','Praveen Raj', DATE '1995-03-10','M','Eluru Road, Eluru',0,'Arrested'); 
+
+
+--VICTIMS 
+INSERT INTO VICTIM VALUES ('V1','Sita Devi',42,'F','9876543210','Tadepalligudem'); 
+INSERT INTO VICTIM VALUES ('V2','Mohan Rao',30,'M','9988776655','Bhimavaram'); 
+INSERT INTO VICTIM VALUES ('V3','Priya Krishnan',25,'F','9123456789','Eluru'); 
+
+
+--FIR 
+INSERT INTO FIR VALUES ('F1', DATE '2025-01-11','Sita Devi','P1','C1','O1','Under Investigation'); 
+INSERT INTO FIR VALUES ('F2', DATE '2025-02-15','Mohan Rao','P2','C2','O2','Charge Sheeted'); 
+INSERT INTO FIR VALUES ('F3', DATE '2025-03-06','Priya Krishnan','P2','C3','O2','Open'); 
+INSERT INTO FIR VALUES ('F4', DATE '2025-04-23','Raju Yadav','P3','C4','O4','Closed'); 
+
+
+--Junction Tables 
+
+--FIR_CRIMINAL 
+INSERTINTO FIR_CRIMINAL VALUES ('F1','CR1'); INSERTINTO FIR_CRIMINAL VALUES ('F2','CR2'); 
+INSERTINTO FIR_CRIMINAL VALUES ('F3','CR3'); INSERTINTO FIR_CRIMINAL VALUES ('F4','CR1'); 
+
+--FIR_VICTIM 
+INSERTINTO FIR_VICTIM VALUES ('F1','V1'); 
+INSERTINTO FIR_VICTIM VALUES ('F2','V2'); INSERTINTO FIR_VICTIM VALUES ('F3','V3'); INSERTINTO FIR_VICTIM VALUES ('F4','V1');  
+

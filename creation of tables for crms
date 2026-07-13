@@ -1,0 +1,85 @@
+--POLICE_STATION 
+CREATE TABLE POLICE_STATION ( 
+station_idVARCHAR2(6) PRIMARY KEY,  
+station_nameVARCHAR2(100) NOT NULL, 
+location VARCHAR2(150) NOT NULL, 
+district VARCHAR2(80) NOT NULL, 
+contact_noVARCHAR2(15) UNIQUE 
+); 
+
+--OFFICER 
+CREATE TABLE OFFICER (
+officer_idVARCHAR2(6) PRIMARY KEY, 
+name VARCHAR2(100) NOT NULL,
+rank VARCHAR2(50) NOT NULL, 
+badge_noVARCHAR2(20) UNIQUE, 
+station_idVARCHAR2(6), 
+FOREIGN KEY (station_id) REFERENCES POLICE_STATION(station_id) 
+); 
+
+--CRIME 
+CREATE TABLE CRIME ( 
+crime_idVARCHAR2(6) PRIMARY KEY, 
+crime_typeVARCHAR2(80) NOT NULL, 
+crime_date DATE NOT NULL, 
+location VARCHAR2(150) NOT NULL, 
+description CLOB, 
+severity VARCHAR2(10) DEFAULT 'Medium', 
+CHECK (severity IN ('Low','Medium','High')) 
+); 
+
+--CRIMINAL 
+CREATE TABLE CRIMINAL ( 
+criminal_idVARCHAR2(6) PRIMARY KEY, 
+name VARCHAR2(100) NOT NULL, 
+dob DATE, gender CHAR(1) CHECK (gender IN ('M','F','O')), 
+address VARCHAR2(200), 
+prior_records NUMBER DEFAULT 0, 
+status VARCHAR2(30) DEFAULT 'Arrested' 
+); 
+
+
+--VICTIM 
+CREATE TABLE VICTIM ( 
+victim_idVARCHAR2(6) PRIMARY KEY, 
+name VARCHAR2(100) NOT NULL, 
+age NUMBER CHECK (age > 0), 
+gender CHAR(1) CHECK (gender IN ('M','F','O')), 
+contact_noVARCHAR2(15), 
+address VARCHAR2(200) 
+); 
+ 
+ 
+--FIR 
+CREATE TABLE FIR ( 
+fir_idVARCHAR2(6) PRIMARY KEY, 
+fir_date DATE NOT NULL, 
+complainant_nameVARCHAR2(100) NOT NULL, 
+station_idVARCHAR2(6), 
+crime_idVARCHAR2(6), 
+officer_idVARCHAR2(6), 
+case_statusVARCHAR2(30) DEFAULT 'Open', CHECK (case_status IN ('Open','UnderInvestigation','ChargeSheeted','Trial','Closed')), 
+FOREIGN KEY (station_id) REFERENCES POLICE_STATION(station_id), 
+FOREIGN KEY (crime_id) REFERENCES CRIME(crime_id), 
+FOREIGN KEY (officer_id) REFERENCES OFFICER(officer_id) 
+); 
+
+ 
+--FIR_CRIMINAL (Junction Table) 
+CREATE TABLE FIR_CRIMINAL ( 
+fir_idVARCHAR2(6), 
+criminal_idVARCHAR2(6), 
+PRIMARY KEY (fir_id, criminal_id), 
+FOREIGN KEY (fir_id) REFERENCES FIR(fir_id), 
+FOREIGN KEY (criminal_id) REFERENCES CRIMINAL(criminal_id) 
+); 	 
+
+ 
+--FIR_VICTIM (Junction Table) 
+CREATE TABLE FIR_VICTIM ( 
+fir_idVARCHAR2(6), 
+victim_idVARCHAR2(6), 
+PRIMARY KEY (fir_id, victim_id), 
+FOREIGN KEY (fir_id) REFERENCES FIR(fir_id), 
+FOREIGN KEY (victim_id) REFERENCES VICTIM(victim_id) 
+); 
